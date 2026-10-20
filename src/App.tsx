@@ -6,6 +6,7 @@ import { SubmissionForm } from './components/SubmissionForm';
 import { IdeasRegistry } from './components/IdeasRegistry';
 import { CatalogsManager } from './components/CatalogsManager';
 import { BackendCodeViewer } from './components/BackendCodeViewer';
+import { FreeDeploymentGuide } from './components/FreeDeploymentGuide';
 import { 
   FileText, 
   Printer, 
@@ -16,7 +17,8 @@ import {
   CheckCircle,
   HelpCircle,
   ChevronRight,
-  ExternalLink
+  ExternalLink,
+  Rocket
 } from 'lucide-react';
 
 export default function App() {
@@ -28,7 +30,7 @@ export default function App() {
   const [selectedIdeaForPrint, setSelectedIdeaForPrint] = useState<KaizenIdea>(SAMPLE_IDEAS[0]);
 
   // Текущая активная вкладка
-  const [activeTab, setActiveTab] = useState<'submit' | 'print' | 'registry' | 'catalogs' | 'backend'>('print');
+  const [activeTab, setActiveTab] = useState<'submit' | 'print' | 'registry' | 'catalogs' | 'backend' | 'deploy'>('print');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Инициализация из URL параметров если переданы (например ?mode=print&idea_id=kz-1)
@@ -50,6 +52,8 @@ export default function App() {
       setActiveTab('submit');
     } else if (mode === 'registry' || mode === 'admin') {
       setActiveTab('registry');
+    } else if (mode === 'deploy') {
+      setActiveTab('deploy');
     }
   }, []);
 
@@ -200,6 +204,18 @@ export default function App() {
               <Code2 className="w-3.5 h-3.5" />
               <span>Код бэкенда</span>
             </button>
+
+            <button
+              onClick={() => setActiveTab('deploy')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                activeTab === 'deploy'
+                  ? 'bg-amber-500 text-slate-950 shadow-sm font-bold'
+                  : 'bg-emerald-950/80 text-emerald-300 hover:text-white border border-emerald-500/40 hover:bg-emerald-900/60'
+              }`}
+            >
+              <Rocket className="w-3.5 h-3.5" />
+              <span>Деплой без сервера (0 ₽)</span>
+            </button>
           </nav>
         </div>
       </header>
@@ -323,6 +339,11 @@ export default function App() {
 
             <BackendCodeViewer />
           </div>
+        )}
+
+        {/* Вкладка 6: Деплой без сервера (0 ₽) */}
+        {activeTab === 'deploy' && (
+          <FreeDeploymentGuide />
         )}
 
       </main>
