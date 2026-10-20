@@ -1,0 +1,6 @@
+{
+  "name": "Kaizen TWA & Print System — MES Mebelain",
+  "description": "Telegram Web App для подачи предложений Kaizen и генерации официального печатного бланка A4 MES Mebelain by sba home",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
